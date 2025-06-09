@@ -22,6 +22,11 @@ func main() {
 	app.Get("/urls", getURLs)
 	app.Get("/records", getRecords)
 
+	app.Static("/", "./ui/dist/ui/browser")
+	app.Use(func(c *fiber.Ctx) error {
+		return c.SendFile("./ui/dist/ui/browser/index.html")
+	})
+
 	log.Fatal(app.Listen(":3000"))
 }
 
