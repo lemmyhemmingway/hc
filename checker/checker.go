@@ -10,13 +10,31 @@ import (
 	"healthcheck/models"
 )
 
+var client = &http.Client{
+	Timeout: 10 * time.Second,
+}
+
 func Check(urlStr string) {
 	start := time.Now()
-	resp, err := http.Get(urlStr)
+	resp, err := client.Get(urlStr)
 	duration := time.Since(start).Milliseconds()
 
 	if err != nil {
 		log.Printf("[ERROR] %s - %s", urlStr, err)
+		var url models.URL
+		result := db.DB.FirstOrCreate(&url, models.URL{Target: urlStr})
+		if result.Error == nil {
+			record := models.HealthCheckRecord{
+				URLID:        url.ID,
+				StatusCode:   0,
+				ResponseTime: duration,
+				Timestamp:    time.Now(),
+				Headers:      "",
+			}
+			db.DB.Create(&record)
+		} else {
+			log.Printf("[DB ERROR] could not create or fetch URL record: %v", result.Error)
+		}
 		return
 	}
 	defer resp.Body.Close()
@@ -47,4 +65,3 @@ func Check(urlStr string) {
 
 	log.Printf("[INFO] %s - %d - %dms", urlStr, resp.StatusCode, duration)
 }
-
