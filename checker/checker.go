@@ -43,8 +43,11 @@ func Check(urlStr string) {
 		Headers:      strings.Join(headers, "; "),
 	}
 
-	db.DB.Create(&record)
+	result = db.DB.Create(&record)
+	if result.Error != nil {
+		log.Printf("[DB ERROR] could not create health check record: %v", result.Error)
+		return
+	}
 
 	log.Printf("[INFO] %s - %d - %dms", urlStr, resp.StatusCode, duration)
 }
-
