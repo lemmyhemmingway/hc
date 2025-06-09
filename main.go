@@ -5,6 +5,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/gofiber/fiber/v2"
+
 	"healthcheck/checker"
 	"healthcheck/db"
 	"healthcheck/models"
@@ -13,13 +15,24 @@ import (
 func main() {
 	db.Init()
 
-	interval := 30 * time.Second
+	go startHealthCheckLoop()
 
+	app := fiber.New()
+
+	app.Get("/urls", getURLs)
+	app.Get("/records", getRecords)
+
+	log.Fatal(app.Listen(":3000"))
+}
+
+func startHealthCheckLoop() {
+	interval := 30 * time.Second
 	for {
 		var urls []models.URL
 		result := db.DB.Find(&urls)
 		if result.Error != nil {
 			log.Printf("Failed to load URLs from database: %v", result.Error)
+			time.Sleep(interval)
 			continue
 		}
 
@@ -38,3 +51,20 @@ func main() {
 	}
 }
 
+func getURLs(c *fiber.Ctx) error {
+	var urls []models.URL
+	result := db.DB.Find(&urls)
+	if result.Error != nil {
+		return c.Status(fiber.StatusInternalServerError).SendString(result.Error.Error())
+	}
+	return c.JSON(urls)
+}
+
+func getRecords(c *fiber.Ctx) error {
+	var records []models.HealthCheckRecord
+	result := db.DB.Preload("URL").Order("timestamp desc").Find(&records)
+	if result.Error != nil {
+		return c.Status(fiber.StatusInternalServerError).SendString(result.Error.Error())
+	}
+	return c.JSON(records)
+}
