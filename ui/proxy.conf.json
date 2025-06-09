@@ -1,0 +1,10 @@
+{
+  "/urls": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/records": {
+    "target": "http://localhost:3000",
+    "secure": false
+  }
+}
