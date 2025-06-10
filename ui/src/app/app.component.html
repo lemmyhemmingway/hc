@@ -1,7 +1,10 @@
 <div class="dashboard">
   <h1>Health Check Dashboard</h1>
 
-  <app-url-list></app-url-list>
-  <app-record-list></app-record-list>
-  <app-uptime-table></app-uptime-table>
+  <nav class="nav">
+    <a routerLink="/">Uptime</a>
+    <a routerLink="/latest">Latest Checks</a>
+  </nav>
+
+  <router-outlet></router-outlet>
 </div>
