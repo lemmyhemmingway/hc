@@ -1,34 +1,6 @@
 <div class="dashboard">
   <h1>Health Check Dashboard</h1>
 
-  <section class="urls">
-    <h2>Monitored URLs</h2>
-    <ul class="url-list">
-      <li *ngFor="let u of urls">{{ u.Target }}</li>
-    </ul>
-  </section>
-
-  <section class="records">
-    <h2>Latest Checks</h2>
-    <table class="records-table">
-      <thead>
-        <tr>
-          <th>Environment</th>
-          <th>URL</th>
-          <th>Status</th>
-          <th>Timestamp</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let r of records">
-          <td>{{ r.URL?.Environment?.Name }}</td>
-          <td>{{ r.URL?.Target }}</td>
-          <td [ngClass]="r.StatusCode < 400 ? 'status-up' : 'status-down'">
-            {{ r.StatusCode }}
-          </td>
-          <td>{{ r.Timestamp | date: "short" }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+  <app-url-list></app-url-list>
+  <app-record-list></app-record-list>
 </div>
