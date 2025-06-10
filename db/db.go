@@ -18,11 +18,10 @@ func Init() {
 		log.Fatal("failed to connect database:", err)
 	}
 
-	err = DB.AutoMigrate(&models.URL{}, &models.HealthCheckRecord{})
+	err = DB.AutoMigrate(&models.Environment{}, &models.URL{}, &models.HealthCheckRecord{})
 	if err != nil {
 		log.Fatal("failed to migrate models:", err)
 	}
 
 	SeedURLsFromFile("db/urls.json")
 }
-

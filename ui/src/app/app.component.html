@@ -13,6 +13,7 @@
     <table class="records-table">
       <thead>
         <tr>
+          <th>Environment</th>
           <th>URL</th>
           <th>Status</th>
           <th>Timestamp</th>
@@ -20,11 +21,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let r of records">
+          <td>{{ r.url?.environment?.name }}</td>
           <td>{{ r.url?.target }}</td>
           <td [ngClass]="r.status_code < 400 ? 'status-up' : 'status-down'">
             {{ r.status_code }}
           </td>
-          <td>{{ r.timestamp | date: 'short' }}</td>
+          <td>{{ r.timestamp | date: "short" }}</td>
         </tr>
       </tbody>
     </table>
