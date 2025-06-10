@@ -1,0 +1,9 @@
+.url-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.url-list li {
+  padding: 4px 0;
+}
