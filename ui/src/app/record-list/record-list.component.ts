@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApiService, RecordItem } from './api.service';
+import { ApiService, RecordItem } from '../api.service';
 
 @Component({
   selector: 'app-record-list',
