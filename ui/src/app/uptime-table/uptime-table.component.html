@@ -1,0 +1,33 @@
+<section class="uptime">
+  <h2>Uptime Checks</h2>
+  <table class="uptime-table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Environment</th>
+        <th>Tags</th>
+        <th>Location</th>
+        <th>Type</th>
+        <th>Uptime</th>
+        <th>Up Since</th>
+        <th>Response/Outages</th>
+        <th>Resp. Time</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td class="status-icon">{{ item.up ? '✅' : '❌' }}</td>
+        <td>{{ item.environment }}</td>
+        <td>{{ item.tags.join(', ') }}</td>
+        <td>{{ item.location }}</td>
+        <td>{{ item.type }}</td>
+        <td>{{ item.uptime }}</td>
+        <td>{{ item.upSince }}</td>
+        <td><div class="graph-placeholder"></div></td>
+        <td>{{ item.responseTime }}</td>
+        <td><button>⋮</button></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
