@@ -21,9 +21,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let r of records">
-          <td>{{ r.URL?.Environment?.name }}</td>
+          <td>{{ r.URL?.Environment?.Name }}</td>
           <td>{{ r.URL?.Target }}</td>
-          <td [ngClass]="r.status_code < 400 ? 'status-up' : 'status-down'">
+          <td [ngClass]="r.StatusCode < 400 ? 'status-up' : 'status-down'">
             {{ r.StatusCode }}
           </td>
           <td>{{ r.Timestamp | date: "short" }}</td>

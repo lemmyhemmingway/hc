@@ -3,14 +3,14 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
 
 interface EnvironmentItem {
-  id: number;
-  name: string;
+  ID: number;
+  Name: string;
 }
 
 interface URLItem {
-  id: number;
-  target: string;
-  environment?: EnvironmentItem;
+  ID: number;
+  Target: string;
+  Environment?: EnvironmentItem;
 }
 
 interface RecordItem {
