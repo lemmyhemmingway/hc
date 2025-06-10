@@ -14,11 +14,11 @@ interface URLItem {
 }
 
 interface RecordItem {
-  id: number;
-  url_id: number;
-  status_code: number;
-  timestamp: string;
-  url?: URLItem;
+  ID: number;
+  URLID: number;
+  StatusCode: number;
+  Timestamp: string;
+  URL?: URLItem;
 }
 
 @Component({
