@@ -1,20 +1,38 @@
-.dashboard {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 20px;
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #343a40;
+  color: #fff;
+  padding: 0.5rem 1rem;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 2rem;
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
 }
 
-.nav {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 2rem;
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+.navbar svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.dashboard {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 20px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 
