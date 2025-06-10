@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
-import { UrlListComponent } from "./url-list.component";
-import { RecordListComponent } from "./record-list.component";
+import { UrlListComponent } from "./url-list/url-list.component";
+import { RecordListComponent } from "./record-list/record-list.component";
 
 @Component({
   selector: "app-root",
