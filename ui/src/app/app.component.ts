@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from "@angular/core";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
+
+interface EnvironmentItem {
+  id: number;
+  name: string;
+}
 
 interface URLItem {
-  ID: number;
-  Target: string;
+  id: number;
+  target: string;
+  environment?: EnvironmentItem;
 }
 
 interface RecordItem {
@@ -16,11 +22,11 @@ interface RecordItem {
 }
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   standalone: true,
   imports: [CommonModule, HttpClientModule],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
   urls: URLItem[] = [];
@@ -29,7 +35,9 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get<URLItem[]>('/urls').subscribe(d => this.urls = d);
-    this.http.get<RecordItem[]>('/records').subscribe(d => this.records = d);
+    this.http.get<URLItem[]>("/urls").subscribe((d) => (this.urls = d));
+    this.http
+      .get<RecordItem[]>("/records")
+      .subscribe((d) => (this.records = d));
   }
 }

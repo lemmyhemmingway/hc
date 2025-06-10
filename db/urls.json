@@ -1,5 +1,9 @@
-[
-  "https://httpbin.org/status/200",
-  "https://httpstat.us/200"
-]
-
+{
+  "prod": [
+    "https://httpbin.org/status/200",
+    "https://httpstat.us/200"
+  ],
+  "nonprod": [
+    "https://httpbin.org/status/204"
+  ]
+}

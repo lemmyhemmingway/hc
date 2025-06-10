@@ -14,38 +14,24 @@ var client = &http.Client{
 	Timeout: 10 * time.Second,
 }
 
-func Check(urlStr string) {
+func Check(u models.URL) {
 	start := time.Now()
-	resp, err := client.Get(urlStr)
+	resp, err := client.Get(u.Target)
 	duration := time.Since(start).Milliseconds()
 
 	if err != nil {
-		log.Printf("[ERROR] %s - %s", urlStr, err)
-		var url models.URL
-		result := db.DB.FirstOrCreate(&url, models.URL{Target: urlStr})
-		if result.Error == nil {
-			record := models.HealthCheckRecord{
-				URLID:        url.ID,
-				StatusCode:   0,
-				ResponseTime: duration,
-				Timestamp:    time.Now(),
-				Headers:      "",
-			}
-			db.DB.Create(&record)
-		} else {
-			log.Printf("[DB ERROR] could not create or fetch URL record: %v", result.Error)
+		log.Printf("[ERROR] %s - %s", u.Target, err)
+		record := models.HealthCheckRecord{
+			URLID:        u.ID,
+			StatusCode:   0,
+			ResponseTime: duration,
+			Timestamp:    time.Now(),
+			Headers:      "",
 		}
+		db.DB.Create(&record)
 		return
 	}
 	defer resp.Body.Close()
-
-	// URL tablosundan ID’yi al veya ekle
-	var url models.URL
-	result := db.DB.FirstOrCreate(&url, models.URL{Target: urlStr})
-	if result.Error != nil {
-		log.Printf("[DB ERROR] could not create or fetch URL record: %v", result.Error)
-		return
-	}
 
 	// Header'ları stringle
 	var headers []string
@@ -54,18 +40,18 @@ func Check(urlStr string) {
 	}
 
 	record := models.HealthCheckRecord{
-		URLID:        url.ID,
+		URLID:        u.ID,
 		StatusCode:   resp.StatusCode,
 		ResponseTime: duration,
 		Timestamp:    time.Now(),
 		Headers:      strings.Join(headers, "; "),
 	}
 
-	result = db.DB.Create(&record)
+	result := db.DB.Create(&record)
 	if result.Error != nil {
 		log.Printf("[DB ERROR] could not create health check record: %v", result.Error)
 		return
 	}
 
-	log.Printf("[INFO] %s - %d - %dms", urlStr, resp.StatusCode, duration)
+	log.Printf("[INFO] %s - %d - %dms", u.Target, resp.StatusCode, duration)
 }
