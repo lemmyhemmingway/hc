@@ -34,7 +34,7 @@ func startHealthCheckLoop() {
 	interval := 30 * time.Second
 	for {
 		var urls []models.URL
-		result := db.DB.Preload("Environment").Find(&urls)
+		result := db.DB.Preload("Environment").Preload("Tags").Preload("Location").Preload("CheckType").Find(&urls)
 		if result.Error != nil {
 			log.Printf("Failed to load URLs from database: %v", result.Error)
 			time.Sleep(interval)
@@ -59,7 +59,7 @@ func startHealthCheckLoop() {
 
 func getURLs(c *fiber.Ctx) error {
 	var urls []models.URL
-	result := db.DB.Preload("Environment").Find(&urls)
+	result := db.DB.Preload("Environment").Preload("Tags").Preload("Location").Preload("CheckType").Find(&urls)
 	if result.Error != nil {
 		return c.Status(fiber.StatusInternalServerError).SendString(result.Error.Error())
 	}
@@ -68,7 +68,7 @@ func getURLs(c *fiber.Ctx) error {
 
 func getRecords(c *fiber.Ctx) error {
 	var records []models.HealthCheckRecord
-	result := db.DB.Preload("URL.Environment").Order("timestamp desc").Find(&records)
+	result := db.DB.Preload("URL.Environment").Preload("URL.Tags").Preload("URL.Location").Preload("URL.CheckType").Order("timestamp desc").Find(&records)
 	if result.Error != nil {
 		return c.Status(fiber.StatusInternalServerError).SendString(result.Error.Error())
 	}
