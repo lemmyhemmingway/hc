@@ -3,16 +3,16 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 interface URLItem {
-  id: number;
-  target: string;
+  ID: number;
+  Target: string;
 }
 
 interface RecordItem {
-  id: number;
-  url_id: number;
-  status_code: number;
-  timestamp: string;
-  url?: URLItem;
+  ID: number;
+  URLID: number;
+  StatusCode: number;
+  Timestamp: string;
+  URL?: URLItem;
 }
 
 @Component({

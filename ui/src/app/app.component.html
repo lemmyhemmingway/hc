@@ -4,7 +4,7 @@
   <section class="urls">
     <h2>Monitored URLs</h2>
     <ul class="url-list">
-      <li *ngFor="let u of urls">{{ u.target }}</li>
+      <li *ngFor="let u of urls">{{ u.Target }}</li>
     </ul>
   </section>
 
@@ -20,11 +20,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let r of records">
-          <td>{{ r.url?.target }}</td>
-          <td [ngClass]="r.status_code < 400 ? 'status-up' : 'status-down'">
-            {{ r.status_code }}
+          <td>{{ r.URL?.Target }}</td>
+          <td [ngClass]="r.StatusCode < 400 ? 'status-up' : 'status-down'">
+            {{ r.StatusCode }}
           </td>
-          <td>{{ r.timestamp | date: 'short' }}</td>
+          <td>{{ r.Timestamp | date: 'short' }}</td>
         </tr>
       </tbody>
     </table>
