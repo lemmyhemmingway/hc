@@ -10,15 +10,6 @@ h1 {
   margin-bottom: 2rem;
 }
 
-.url-list {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 1rem;
-}
-
-.url-list li {
-  padding: 4px 0;
-}
 
 .records-table {
   width: 100%;

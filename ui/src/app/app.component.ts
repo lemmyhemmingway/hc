@@ -29,13 +29,11 @@ interface RecordItem {
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
-  urls: URLItem[] = [];
   records: RecordItem[] = [];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get<URLItem[]>("/urls").subscribe((d) => (this.urls = d));
     this.http
       .get<RecordItem[]>("/records")
       .subscribe((d) => (this.records = d));
