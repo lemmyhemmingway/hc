@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 export interface EnvironmentItem {
   ID: number;
@@ -21,7 +21,18 @@ export interface RecordItem {
   URL?: URLItem;
 }
 
-@Injectable({ providedIn: 'root' })
+export interface UptimeItem {
+  up: boolean;
+  environment: string;
+  tags: string[];
+  location: string;
+  type: string;
+  uptime: string;
+  upSince: string;
+  responseTime: string;
+}
+
+@Injectable({ providedIn: "root" })
 export class ApiService {
   constructor(private http: HttpClient) {}
 
@@ -31,5 +42,9 @@ export class ApiService {
 
   getRecords(): Observable<RecordItem[]> {
     return this.http.get<RecordItem[]>("/records");
+  }
+
+  getUptimes(): Observable<UptimeItem[]> {
+    return this.http.get<UptimeItem[]>("/uptimes");
   }
 }
