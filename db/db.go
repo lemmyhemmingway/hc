@@ -2,10 +2,11 @@ package db
 
 import (
 	"log"
+	"os"
 
 	"healthcheck/models"
 
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -13,7 +14,13 @@ var DB *gorm.DB
 
 func Init() {
 	var err error
-	DB, err = gorm.Open(sqlite.Open("healthcheck.db"), &gorm.Config{})
+
+	dsn := os.Getenv("DATABASE_URL")
+	if dsn == "" {
+		dsn = "host=localhost user=postgres password=postgres dbname=healthcheck port=5432 sslmode=disable"
+	}
+
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("failed to connect database:", err)
 	}
