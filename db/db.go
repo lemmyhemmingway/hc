@@ -25,7 +25,21 @@ func Init() {
 		log.Fatal("failed to connect database:", err)
 	}
 
-	err = DB.AutoMigrate(&models.Environment{}, &models.Tag{}, &models.URLTag{}, &models.Location{}, &models.CheckType{}, &models.URL{}, &models.HealthCheckRecord{}, &models.UptimeStat{})
+	err = DB.AutoMigrate(
+		&models.Environment{},
+		&models.Tag{},
+		&models.URLTag{},
+		&models.Location{},
+		&models.CheckType{},
+		&models.URL{},
+		&models.HealthCheckRecord{},
+		&models.UptimeStat{},
+		&models.Type{},
+		&models.Status{},
+		&models.Target{},
+		&models.Log{},
+		&models.Schedule{},
+	)
 	if err != nil {
 		log.Fatal("failed to migrate models:", err)
 	}
