@@ -4,6 +4,7 @@ go 1.24.1
 
 require (
 	github.com/gofiber/fiber/v2 v2.52.8
+	github.com/lib/pq v1.10.9
 	gorm.io/driver/postgres v1.6.0
 	gorm.io/gorm v1.30.0
 )
